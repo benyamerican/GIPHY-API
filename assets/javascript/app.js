@@ -12,20 +12,48 @@ $(document).ready(function(){
 // Add a form to your page takes the value from a user input box and adds it into your topics array. Then make a function call that takes each topic in the array remakes the buttons on the page.
 // Deploy your assignment to Github Pages.
 // Rejoice! You just made something really cool.
-
 // ////////////////////ARRAY OF TOPICS////////////////////////////////
-var topics =['biology','physics'];
+var topics =['Biology','Physics','Math'];
 //var q = ["A","B"];
 ////////////////////Taking action on buttons//////////////////
   function actionOntopic() {
-    var topicId = $(this).attr("id");
-   console.log(topicId);
+    //Function with AJAX call to GIPHY; 
+//Q parameterc for API link set to search term, limit 10 results
+  //Create div with respective still and animate image sources 
+  //with "data-state", "data-still" and "data-animate" attributes
+ var topic = $(this).attr("data-name"); 
+var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic +"&api_key=31O9EZj1P994Acp44GRThKC2LaO0aKyD&limit=10&rating=g"
+//console.log(queryURL);
+///////////////////// AJAX///////////////////////////
+$.ajax({
+url :queryURL,
+method : "GET",
+}).done(function(response){
+    buttonCreator();
+     ///////for loop through the data array///////
+     for(var i = 0;i < response.data.length;i++){
+     var relatedGifStill = response.data[i].images.original_still.url;
+     var relatedGifAnimate = response.data[i].images.original.url;
+///////////creating image frame /////////////
+     var topicsImage = $("<img class='image'>");
+/////////////////////////////state Moving/Still/////
+/////////////////////////////////////////////////////
+     var  stateMoving = topicsImage.attr("src", relatedGifAnimate);
+     var stateStill = topicsImage.attr("src" , relatedGifStill);
+///////////////////////////////////////////////////////
+///////////////////////click on the image
+$(document).on("click", ".image" ,function() {
+  });
+///////////////////////////////////////////////////////
+     $('#imageContainer').prepend(stateStill);
+     };
+     /////////////////Moving/still//////////////
+});
+/////////////////END OF AJAX///////////////////////////
   };
- 
   function buttonCreator(){
     //  event.preventDefault();
     $("#buttonsContainer").empty();
-
     //////////loping through the topics array//////
     for(var i = 0; i < topics.length;i++){
         ///////////taking the input and creating a button ////
@@ -33,20 +61,17 @@ var topics =['biology','physics'];
         //adding a class to the new button which's just created////
         newButtonElement.addClass("topiClass");
          // Adding a data-attribute with a value of the gif at index i
-         newButtonElement.attr("id", topics[i]);
+         newButtonElement.attr("data-name", topics[i]);
           // Providing the button's text with a value of the movie at index i
           newButtonElement.text(topics[i]);
           // Adding the button to the HTML
           $("#buttonsContainer").append(newButtonElement);
     }
 };
-
-   
       //////////CLICK SEARCH FUNCTION CREATE BUTTON//////////
       $("#search_button").on("click", function(event) {
          event.preventDefault();
-    //     
-
+    //  
     //     // This line will grab the text from the input box
         let topic = $("#form-value").val().trim();
 /////////if user actualy insert something take action//////
@@ -56,39 +81,16 @@ var topics =['biology','physics'];
          /////Otherwise be a 3rd derivative of displacement(A JERK)
         ////and tell user how stupid he is///
         /////Just tell him in console-log so may hurts little less
-        }else{console.log('In case no one told you today.You are an idiot! ')};
+        }else{
+            console.log('In case no one told you today.You are an idiot! ')
+        };
        $("#form-value").val('')
       });
 //Just calling the function so we'll have the 
 //array button present when the page opens
-
-
     buttonCreator();
-
-
-    
-//Function with AJAX call to GIPHY; 
-//Q parameterc for API link set to search term, limit 10 results
-  //Create div with respective still and animate image sources 
-  //with "data-state", "data-still" and "data-animate" attributes
-
-var q ="big+fish"; 
-var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + q +"&api_key=31O9EZj1P994Acp44GRThKC2LaO0aKyD&limit=10&rating=g"
-//console.log(queryURL);
-///////////////////// AJAX///////////////////////////
-$.ajax({
-url :queryURL,
-method : "GET",
-}).done(function(response){
-    var results = response.data;
-});
-/////////////////END OF AJAX///////////////////////////
-
-
-// adding a click event listener to all elements with the class "movie"
-$(document).on("click", ".topiClass", actionOntopic);
+    // //////////////////////////////////////////////////////
+$(document).on("click", ".topiClass", actionOntopic).empty();
 ///////////////////////////////////////////////////
-
-
-
+////THE END/////
 });
