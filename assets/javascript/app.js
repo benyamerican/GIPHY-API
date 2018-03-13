@@ -13,42 +13,82 @@ $(document).ready(function(){
 // Deploy your assignment to Github Pages.
 // Rejoice! You just made something really cool.
 
-// ////////////////////VARIABLES////////////////////////////////
-var topics =[];
-//var q = "";
+// ////////////////////ARRAY OF TOPICS////////////////////////////////
+var topics =['biology','physics'];
+//var q = ["A","B"];
+////////////////////Taking action on buttons//////////////////
+  function actionOntopic() {
+    var topicId = $(this).attr("id");
+   console.log(topicId);
+  };
+ 
+  function buttonCreator(){
+    //  event.preventDefault();
+    $("#buttonsContainer").empty();
 
-//var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + q +"&api_key=31O9EZj1P994Acp44GRThKC2LaO0aKyD&limit=10&rating=g"
+    //////////loping through the topics array//////
+    for(var i = 0; i < topics.length;i++){
+        ///////////taking the input and creating a button ////
+        var newButtonElement = $("<button>");
+        //adding a class to the new button which's just created////
+        newButtonElement.addClass("topiClass");
+         // Adding a data-attribute with a value of the gif at index i
+         newButtonElement.attr("id", topics[i]);
+          // Providing the button's text with a value of the movie at index i
+          newButtonElement.text(topics[i]);
+          // Adding the button to the HTML
+          $("#buttonsContainer").append(newButtonElement);
+    }
+};
 
+   
+      //////////CLICK SEARCH FUNCTION CREATE BUTTON//////////
+      $("#search_button").on("click", function(event) {
+         event.preventDefault();
+    //     
+
+    //     // This line will grab the text from the input box
+        let topic = $("#form-value").val().trim();
+/////////if user actualy insert something take action//////
+        if(topic){
+         topics.push(topic);
+         buttonCreator();
+         /////Otherwise be a 3rd derivative of displacement(A JERK)
+        ////and tell user how stupid he is///
+        /////Just tell him in console-log so may hurts little less
+        }else{console.log('In case no one told you today.You are an idiot! ')};
+       $("#form-value").val('')
+      });
+//Just calling the function so we'll have the 
+//array button present when the page opens
+
+
+    buttonCreator();
+
+
+    
+//Function with AJAX call to GIPHY; 
+//Q parameterc for API link set to search term, limit 10 results
+  //Create div with respective still and animate image sources 
+  //with "data-state", "data-still" and "data-animate" attributes
+
+var q ="big+fish"; 
+var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + q +"&api_key=31O9EZj1P994Acp44GRThKC2LaO0aKyD&limit=10&rating=g"
+//console.log(queryURL);
 ///////////////////// AJAX///////////////////////////
-//$.ajax({
-//url :queryURL,
-//method : "GET",
-
-//}).done(function(giphy){
-  
-//});
+$.ajax({
+url :queryURL,
+method : "GET",
+}).done(function(response){
+    var results = response.data;
+});
 /////////////////END OF AJAX///////////////////////////
 
 
-
-
+// adding a click event listener to all elements with the class "movie"
+$(document).on("click", ".topiClass", actionOntopic);
 ///////////////////////////////////////////////////
-//////////CLICK SEARCH FUNCTION CREATE BUTTON//////////
-$("#search_button").click(function search(){
-////////////////TAKE TEXT INPUT AND CREATE A BUTTON////////////////////
-    let q = $("#form-value").val().trim();
-//IF/ELSE STATEMENT IN CASE USER DIDN'T TYPE ANYTHING BUT WAS SO STUPID TO HIT ENTER/////
-    if (q){
-    $("#divForNewButtons").append("<button>" + q + "</button>");
-    $("button").addClass("buttonsClass");
-    }
-    else
-    {console.log("You didn't search shit what do you expect?")};
- /////////EMPTY THE TEXT AFTER HITTING ENTER//////////
-   q = $("#form-value").val("");
-////////////PREVENT DEFAULT DUHHH!//////////////////
-    event.preventDefault();
-})
 
-//////////////END CLICK SEARCH FUNCTION CREATE BUTTON//////
-});;
+
+
+});
