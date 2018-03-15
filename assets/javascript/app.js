@@ -39,15 +39,17 @@ method : "GET",
 /////////////////////////////state Moving/Still/////
 /////////////////////////////////////////////////////
     // var  stateAnimate = topicsImage.attr("src", relatedGifAnimate);
-     var stateStill = topicsImage.attr("src" , dataStill);
+     var normalState = topicsImage.attr("src" , dataStill);
      var stateAnimate = topicsImage.attr("data-animate",dataAnimate);
+     var stateStill = topicsImage.attr("data-still" , dataStill);
+
      stateStill.attr("data-state", 'still');
 ///////////////////////////////////////////////////////
    
    // 
 
 ///////////////////////////////////////////////////////
-     $('#imageContainer').prepend(stateStill);
+     $('#imageContainer').prepend(normalState);
      };
      /////////////////Moving/still//////////////
      ///////////////////////click on the image
@@ -55,12 +57,14 @@ $(document).on("click", ".image" ,function() {
     
     
     var state = $(this).attr("data-state");
+    
     if(state==="still"){
         $(this).attr("data-state",'animate');
-    console.log(state);
+        $(this).attr("src", $(this).attr("data-animate"));
+    
     }else{
         $(this).attr("data-state",'still');
-        console.log(state);
+        $(this).attr("src", $(this).attr('data-still'));
 
     }
   });
