@@ -53,7 +53,7 @@ method : "GET",
      };
      /////////////////Moving/still//////////////
      ///////////////////////click on the image
-$(document).on("click", ".image" ,function() {
+$('.image').on("click" ,function() {
     
     
     var state = $(this).attr("data-state");
