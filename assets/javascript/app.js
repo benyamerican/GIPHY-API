@@ -22,7 +22,7 @@ var topics =['Biology','Physics','Math'];
   //Create div with respective still and animate image sources 
   //with "data-state", "data-still" and "data-animate" attributes
  var topic = $(this).attr("data-name"); 
-var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic +"&api_key=31O9EZj1P994Acp44GRThKC2LaO0aKyD&limit=10&rating=g"
+var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic +"&api_key=31O9EZj1P994Acp44GRThKC2LaO0aKyD&limit=10"
 //console.log(queryURL);
 ///////////////////// AJAX///////////////////////////
 $.ajax({
@@ -32,22 +32,38 @@ method : "GET",
     buttonCreator();
      ///////for loop through the data array///////
      for(var i = 0;i < response.data.length;i++){
-     var relatedGifStill = response.data[i].images.original_still.url;
-     var relatedGifAnimate = response.data[i].images.original.url;
+     var dataStill = response.data[i].images.original_still.url;
+     var dataAnimate = response.data[i].images.original.url;
 ///////////creating image frame /////////////
      var topicsImage = $("<img class='image'>");
 /////////////////////////////state Moving/Still/////
 /////////////////////////////////////////////////////
-     var  stateMoving = topicsImage.attr("src", relatedGifAnimate);
-     var stateStill = topicsImage.attr("src" , relatedGifStill);
+    // var  stateAnimate = topicsImage.attr("src", relatedGifAnimate);
+     var stateStill = topicsImage.attr("src" , dataStill);
+     var stateAnimate = topicsImage.attr("data-animate",dataAnimate);
+     stateStill.attr("data-state", 'still');
 ///////////////////////////////////////////////////////
-///////////////////////click on the image
-$(document).on("click", ".image" ,function() {
-  });
+   
+   // 
+
 ///////////////////////////////////////////////////////
      $('#imageContainer').prepend(stateStill);
      };
      /////////////////Moving/still//////////////
+     ///////////////////////click on the image
+$(document).on("click", ".image" ,function() {
+    
+    
+    var state = $(this).attr("data-state");
+    if(state==="still"){
+        $(this).attr("data-state",'animate');
+    console.log(state);
+    }else{
+        $(this).attr("data-state",'still');
+        console.log(state);
+
+    }
+  });
 });
 /////////////////END OF AJAX///////////////////////////
   };
@@ -92,5 +108,6 @@ $(document).on("click", ".image" ,function() {
     // //////////////////////////////////////////////////////
 $(document).on("click", ".topiClass", actionOntopic).empty();
 ///////////////////////////////////////////////////
+
 ////THE END/////
 });
