@@ -34,14 +34,18 @@ method : "GET",
      for(var i = 0;i < response.data.length;i++){
      var dataStill = response.data[i].images.original_still.url;
      var dataAnimate = response.data[i].images.original.url;
+     var rating = (response.data[i].rating);
 ///////////creating image frame /////////////
      var topicsImage = $("<img class='image'>");
+     var imageRatingH = $('<h4>').prepend(response.data[i].rating);
+
 /////////////////////////////state Moving/Still/////
 /////////////////////////////////////////////////////
     // var  stateAnimate = topicsImage.attr("src", relatedGifAnimate);
      var normalState = topicsImage.attr("src" , dataStill);
      var stateAnimate = topicsImage.attr("data-animate",dataAnimate);
      var stateStill = topicsImage.attr("data-still" , dataStill);
+     ////////////////
 
      stateStill.attr("data-state", 'still');
 ///////////////////////////////////////////////////////
@@ -50,6 +54,8 @@ method : "GET",
 
 ///////////////////////////////////////////////////////
      $('#imageContainer').prepend(normalState);
+     //////////////rating//////////////////////
+     $('#imageContainer').prepend(imageRatingH);
      };
      /////////////////Moving/still//////////////
      ///////////////////////click on the image
