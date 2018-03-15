@@ -36,13 +36,14 @@ method : "GET",
      var dataAnimate = response.data[i].images.original.url;
      var rating = (response.data[i].rating);
 ///////////creating image frame /////////////
-     var topicsImage = $("<img class='image'>");
-     var imageRatingH = $('<h4>').prepend(response.data[i].rating);
+     var topicsImage = $("<img class='image'><hr>");
+     var imageRatingH = $('<h3>').prepend('Rating : ' + response.data[i].rating);
 
 /////////////////////////////state Moving/Still/////
 /////////////////////////////////////////////////////
     // var  stateAnimate = topicsImage.attr("src", relatedGifAnimate);
      var normalState = topicsImage.attr("src" , dataStill);
+     ///////////////////////////////////////////////////
      var stateAnimate = topicsImage.attr("data-animate",dataAnimate);
      var stateStill = topicsImage.attr("data-still" , dataStill);
      ////////////////
