@@ -1,8 +1,36 @@
 button{
     margin: 15px;
+   
 };
-.image{
-    margin: 10px;
-    height: 250px;
+body{
+    background-color: rgb(37, 160, 190);
+   
+}
+
+
+
+#imageContainer{
+    /* background-color: rgb(37, 160, 190); */
+   align-content: center;
+   
+    /*  */
+}
+
+img{
+    /* background-color:rgb(37, 160, 190); */
+    border: 2.5px solid black;
     width: 250px;
-};
+    height: 250px;
+    margin-left: 250px;
+    margin: 10px;
+
+  
+}
+h3{
+    border: black solid 2.5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    text-align: center;
+    padding: 5px;
+    
+}

@@ -37,7 +37,7 @@ method : "GET",
      var rating = (response.data[i].rating);
 ///////////creating image frame /////////////
      var topicsImage = $("<img class='image'><hr>");
-     var imageRatingH = $('<h3>').prepend('Rating : ' + response.data[i].rating);
+     var imageRatingH = $('<h3>').append('Rating : ' + response.data[i].rating);
 
 /////////////////////////////state Moving/Still/////
 /////////////////////////////////////////////////////
@@ -54,9 +54,9 @@ method : "GET",
    // 
 
 ///////////////////////////////////////////////////////
-     $('#imageContainer').prepend(normalState);
+     $('#imageContainer').prepend(imageRatingH,normalState);
      //////////////rating//////////////////////
-     $('#imageContainer').prepend(imageRatingH);
+    //  $('#imageContainer').prepend();
      };
      /////////////////Moving/still//////////////
      ///////////////////////click on the image
