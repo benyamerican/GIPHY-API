@@ -22,7 +22,7 @@ var topics =['Biology','Physics','Math'];
   //Create div with respective still and animate image sources 
   //with "data-state", "data-still" and "data-animate" attributes
  var topic = $(this).attr("data-name"); 
-var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic +"&api_key=31O9EZj1P994Acp44GRThKC2LaO0aKyD&limit=10"
+var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic +"&api_key=31O9EZj1P994Acp44GRThKC2LaO0aKyD&limit=10"
 //console.log(queryURL);
 ///////////////////// AJAX///////////////////////////
 $.ajax({
